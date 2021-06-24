@@ -51,4 +51,4 @@ document.querySelector(".search button").addEventListener("click", function () {
       }
     });
   
-  weather.fetchWeather("Jamalpur");
+  weather.fetchWeather("Munger");
