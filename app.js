@@ -1,3 +1,47 @@
+//Detect location data
+let token = "e23b5f58c595afee83873aa6a2e19bee";
+if (navigator.geolocation) 
+{
+    navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        currentLocation(lat, lon);
+    });
+} 
+else 
+{ 
+    console.log("Geolocation is not supported by this browser.");
+}
+
+async function currentLocation(lat, lon)
+{ 
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${token}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    putData(data);
+}
+function putData(data)
+{
+    var num = data.main.temp - 273.15;
+    if(Number(num) === num && num % 1 !== 0)
+    {
+        var num = num.toFixed(2);
+    }
+
+    icon = data.weather[0].icon;
+    iconurl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+
+    document.querySelector(".city").innerText = "Weather in " + data.name;
+    document.querySelector(".icon").src = iconurl;
+    document.querySelector(".description").innerText = data.weather[0].main;  
+    document.querySelector(".temp").innerText = num + "°C";
+    document.querySelector(".humidity").innerText =  "Humidity: " + data.main.humidity + "%";
+    document.querySelector(".wind").innerText = "Wind speed: " + data.wind.speed + " km/h";
+    document.querySelector(".weather").classList.remove("loading");
+    document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + name + "')";
+}
+
+//Searched Location Data
 let weather = {
     apikey :"e23b5f58c595afee83873aa6a2e19bee",
     fetchWeather:function(city){
