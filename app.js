@@ -95,4 +95,4 @@ document.querySelector(".search button").addEventListener("click", function () {
       }
     });
   
-  weather.fetchWeather("Munger");
+  weather.fetchWeather("");
